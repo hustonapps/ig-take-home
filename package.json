@@ -10,6 +10,7 @@
     "get-products": "ts-node app/get-products.mjs"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1164.0",
     "@base-ui/react": "^1.9.0",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",

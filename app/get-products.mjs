@@ -1,4 +1,12 @@
-import fs from "fs/promises";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+// import fs from "fs/promises";
+
+const BUCKET_NAME = "ig-mhuston-take-home-be-bucket";
+const s3Client = new S3Client({ region: "us-east-1" });
+
+/********************************************
+ * Vendor-specific product GET functions
+ *********************************************/
 
 // master list of competitors
 const COMPETITORS = {
@@ -90,12 +98,28 @@ const getAdidas = async () => {
   }
 };
 
-const saveRawProductData = async (data, key) => {
-  // write local to confirm
+/********************************************
+ * Helper functions
+ *********************************************/
+
+const saveRawProductData = async (data, key, local = false) => {
   try {
-    await fs.writeFile(`./app/${key}`, JSON.stringify(data));
+    // if (local) {
+    //   // write local to confirm
+    //   await fs.writeFile(`./app/${key}`, JSON.stringify(data));
+    // } else {
+    await s3Client.send(
+      new PutObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: key,
+        Body: JSON.stringify(data),
+        ContentType: "application/json",
+      }),
+    );
+    console.log(`Uploaded https://ig-mhuston-take-home.intelligems.io/${key}`);
+    // }
   } catch (e) {
-    console.error("Error saving raw product data locally", e);
+    console.error("Error saving raw product data", e);
   }
 };
 
@@ -123,22 +147,6 @@ const addCompetitorProduct = async (
     });
   return catalog;
 };
-
-// const getRawProductData = async () => {
-//   const [trueClassic, meUndies, adidas] = await Promise.all([
-//     getTrueClassic(),
-//     getMeUndies(),
-//     getAdidas(),
-//   ]);
-
-//   const catalog = {};
-
-//   addCompetitorData("mens-t-shirts", "trueClassic", trueClassic.product);
-//   addCompetitorData("mens-t-shirts", "meUndies", meUndies.data.product);
-//   addCompetitorData("mens-t-shirts", "adidas", adidas[0]);
-
-//   await saveRawProductData("data.json");
-// };
 
 const buildData = async () => {
   const catalog = {
@@ -168,7 +176,9 @@ const buildData = async () => {
     "mens-t-shirts",
     getAdidas,
   );
+  // ... add more competitors here
 
+  // save data
   await saveRawProductData(catalog, "data.json");
 };
 
