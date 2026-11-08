@@ -1,27 +1,5 @@
 import fs from "fs/promises";
 
-// basic "db" layout for catalog
-// {
-//   competitors: [
-//    {
-//      key: "trueClassic",
-//      name: "True Classic",
-//      products: []
-//    },
-//    {
-//      key: "meUndies",
-//      name: "Me Undies",
-//      products: []
-//    },
-//    {
-//      key: "adidas",
-//      name: "Adidas",
-//      products: []
-//    },
-//    ...other competitors
-//  ]
-// }
-
 // master list of competitors
 const COMPETITORS = {
   TRUE_CLASSIC: { key: "trueClassic", name: "True Classic", products: [] },
