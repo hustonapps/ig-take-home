@@ -35,6 +35,7 @@ export class ProductDisplay {
   variants: ProductVariant[] = [];
   name: string = "";
   fullData: Record<string, any> = {};
+  imageUrl: string = "";
 
   constructor(vendor: string) {
     this.key = `${vendor}`;
@@ -57,6 +58,7 @@ export class TrueClassicProductDisplay extends ProductDisplay {
           variant?.price ?? 0,
         ),
     );
+    this.imageUrl = product?.images?.[0].src;
     this.fullData = product;
   }
 }
@@ -77,6 +79,7 @@ export class MeUndiesProductDisplay extends ProductDisplay {
         );
       },
     );
+    this.imageUrl = product.featuredImage.url;
     this.fullData = product;
   }
 }
@@ -95,6 +98,7 @@ export class AdidasProductDisplay extends ProductDisplay {
         product.pricing_information.currentPrice,
       );
     });
+    this.imageUrl = product.view_list?.[0].image_url;
     this.fullData = product;
   }
 }

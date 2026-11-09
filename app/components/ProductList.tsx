@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import Image from "next/image";
 import { useMapProductToProductDisplay } from "@/app/hooks/useMapProductToProductDisplay";
 import type { Product } from "@/app/models/Catalog";
 import { Separator } from "@/components/ui/separator";
@@ -68,6 +69,15 @@ export const ProductList = ({
             </CardHeader>
             <div className="min-h-0 flex-1 overflow-auto">
               <CardContent>
+                <div className="relative mx-auto aspect-square w-full">
+                  <Image
+                    src={product.imageUrl}
+                    alt={product.name}
+                    fill
+                    sizes="250px"
+                    className="object-contain"
+                  />
+                </div>
                 <div className="flex flex-col gap-2">
                   {product.variants.map((variant) => {
                     return (
