@@ -31,7 +31,7 @@ export const CatalogProvider = ({
       setCatalog(new Catalog(data));
     };
     fetchCatalog();
-  });
+  }, []);
 
   const value = useMemo(() => ({ catalog }), [catalog]);
 
