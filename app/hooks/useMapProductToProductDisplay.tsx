@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback } from "react";
+import type { Product } from "@/app/models/Product";
 import {
-  type Product,
-  ProductDisplay,
+  type ProductDisplay,
   TrueClassicProductDisplay,
   MeUndiesProductDisplay,
   AdidasProductDisplay,
-} from "@/app/models/Catalog";
+} from "@/app/models/ProductDisplay";
 
 export const useMapProductToProductDisplay = () => {
   const mapTrueClassic = useCallback((product: Product): ProductDisplay => {
