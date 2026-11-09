@@ -1,6 +1,10 @@
-import type { ProductVariant } from "@/app/models/Catalog";
+import type { ProductVariant } from "@/app/models/ProductVariant";
 
-export const ProductLineItem = ({ variant }: { variant: ProductVariant }) => {
+interface Props {
+  variant: ProductVariant;
+}
+
+export const ProductLineItem = ({ variant }: Props) => {
   return (
     <div className="flex justify-between border-b border-accent pb-2">
       <h4>
