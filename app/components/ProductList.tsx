@@ -1,14 +1,17 @@
 "use client";
 
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useMapProductToProductDisplay } from "@/app/hooks/useMapProductToProductDisplay";
 import type { Product } from "@/app/models/Catalog";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import { ProductLineItem } from "@/app/components/ProductLineItem";
 
@@ -25,6 +28,7 @@ export const ProductList = ({
   competitorKey,
   competitorName,
 }: Props) => {
+  const [showFullData, setShowFullData] = useState(false);
   const competitorProductMappers = useMapProductToProductDisplay();
 
   const mapFn = useMemo(() => {
@@ -46,22 +50,46 @@ export const ProductList = ({
     return data.filter((product) => product.category === category).map(mapFn);
   }, [data, category, mapFn]);
 
+  const onToggleShowFullData = useCallback(() => {
+    setShowFullData((prev) => !prev);
+  }, []);
+
   return (
-    <div className="w-full">
+    <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
       {products.map((product) => {
         return (
-          <Card key={product.key} className="p-2">
-            <CardHeader>
+          <Card
+            key={product.key}
+            className="h-full min-h-0 overflow-hidden p-2"
+          >
+            <CardHeader className="shrink-0">
               <CardTitle>{product.name}</CardTitle>
               <CardDescription>{competitorName}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="flex flex-col gap-2">
-                {product.variants.map((variant) => {
-                  return <ProductLineItem key={variant.id} variant={variant} />;
-                })}
-              </div>
-            </CardContent>
+            <div className="min-h-0 flex-1 overflow-auto">
+              <CardContent>
+                <div className="flex flex-col gap-2">
+                  {product.variants.map((variant) => {
+                    return (
+                      <ProductLineItem key={variant.id} variant={variant} />
+                    );
+                  })}
+                </div>
+              </CardContent>
+              {showFullData && (
+                <>
+                  <Separator />
+                  <pre className="w-max min-w-full px-(--card-spacing) pb-2 text-xs">
+                    {JSON.stringify(product, null, 2)}
+                  </pre>
+                </>
+              )}
+            </div>
+            <CardFooter className="shrink-0">
+              <Button onClick={onToggleShowFullData} className="w-full">
+                {showFullData ? "Show Variants Only" : "Show All Data"}
+              </Button>
+            </CardFooter>
           </Card>
         );
       })}

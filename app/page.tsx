@@ -34,17 +34,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col pt-16">
-      <main className=" flex flex-col container mx-auto">
-        <Card>
-          <CardHeader>
+    <div className="flex h-screen flex-col pt-16">
+      <main className="container mx-auto flex min-h-0 flex-1 flex-col">
+        <Card className="min-h-0 flex-1 overflow-hidden">
+          <CardHeader className="shrink-0">
             <CardTitle>Mott & Bow Price Analysis Tool</CardTitle>
             <CardDescription>
               Compare Competitor Pricing on Products
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-4">
+          <CardContent className="min-h-0 flex-1">
+            <div className="flex shrink-0 flex-col gap-4">
               <div>
                 <h2 className="text-lg font-bold">Competitors</h2>
                 <CompetitorList data={catalog?.competitorList ?? []} />
@@ -60,9 +60,11 @@ export default function Home() {
               </div>
             </div>
             <Separator />
-            <div>
-              <h2 className="text-lg font-bold">Competitor Products</h2>
-              <div className="flex gap-4">
+            <div className="flex min-h-0 flex-1 flex-col">
+              <h2 className="shrink-0 text-lg font-bold">
+                Competitor Products
+              </h2>
+              <div className="flex min-h-0 flex-1 gap-4">
                 {catalog?.competitorList.map((comp) => {
                   return (
                     <ProductList

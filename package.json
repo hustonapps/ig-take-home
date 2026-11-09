@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "get-products": "ts-node app/get-products.mjs"
+    "get-products": "ts-node app/get-products.mjs",
+    "publish": "next build && aws s3 sync out s3://ig-mhuston-take-home-fe-bucket"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1164.0",
