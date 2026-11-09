@@ -67,14 +67,14 @@ export const ProductList = ({
               <CardTitle>{product.name}</CardTitle>
               <CardDescription>{competitorName}</CardDescription>
             </CardHeader>
-            <div className="min-h-0 flex-1 overflow-auto">
+            <div className="min-h-6 flex-1 overflow-auto">
               <CardContent>
-                <div className="relative mx-auto aspect-square w-full">
+                <div className="relative mx-auto size-36">
                   <Image
                     src={product.imageUrl}
                     alt={product.name}
                     fill
-                    sizes="250px"
+                    sizes="96px"
                     className="object-contain"
                   />
                 </div>
