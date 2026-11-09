@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 import Image from "next/image";
 import { useMapProductToProductDisplay } from "@/app/hooks/useMapProductToProductDisplay";
-import type { Product } from "@/app/models/Catalog";
+import type { Product } from "@/app/models/Product";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import {

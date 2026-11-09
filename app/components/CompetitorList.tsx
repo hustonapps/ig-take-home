@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import type { Competitor } from "@/app/models/Catalog";
+import type { Competitor } from "@/app/models/Competitor";
 import { Badge } from "@/components/ui/badge";
 
 interface Props {
